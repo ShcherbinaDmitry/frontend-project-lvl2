@@ -6,3 +6,4 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/3791b66a19f3254ba724/maintainability)](https://codeclimate.com/github/ShcherbinaDmitry/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3791b66a19f3254ba724/test_coverage)](https://codeclimate.com/github/ShcherbinaDmitry/frontend-project-lvl2/test_coverage)
 ### Github Actions:
+[![my-check](https://github.com/ShcherbinaDmitry/frontend-project-lvl2/actions/workflows/my-check.yml/badge.svg)](https://github.com/ShcherbinaDmitry/frontend-project-lvl2/actions/workflows/my-check.yml)
