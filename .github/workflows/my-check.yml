@@ -21,3 +21,6 @@ jobs:
       
       - name: Test run
         run: make test
+         env:
+          CI: true
+          ID: ${{ secrets.CODECLIMATE_ID }}
