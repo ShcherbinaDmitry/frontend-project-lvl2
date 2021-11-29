@@ -20,6 +20,6 @@ test('Compare plain json', () => {
 + timeout: 20
 + verbose: true
 }`;
- 
+
   expect(genDiff(path1, path2)).toEqual(result);
 });
