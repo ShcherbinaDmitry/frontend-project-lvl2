@@ -7,7 +7,7 @@ test: # запуск тестов
 		npm test
 
 lint: # запуск линтера
-		npx eslint
+		npx eslint .
 
 publish: # публикация пакетов
 		npm publish --dry-run
