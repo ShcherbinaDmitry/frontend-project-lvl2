@@ -9,20 +9,10 @@ on:
 
 jobs:
   test:
-    steps:
-    - uses: actions/checkout@master
-    - uses: codecov/codecov-action@v2
-    with:
-      token: ${{ secrets.CODECLIMATE_TEST_ID }} # not required for public repos
-      files: ./coverage1.xml,./coverage2.xml # optional
-      flags: unittests # optional
-      name: codecov-umbrella # optional
-      fail_ci_if_error: true # optional (default = false)
-      verbose: true # optional (default = false)
-  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: paambaati/codeclimate-action@v3.0.0
 
       - name: Deps install
         run: make install
@@ -32,3 +22,10 @@ jobs:
       
       - name: Test run
         run: make test
+
+      - name: Test & publish code coverage
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TEST_ID }}
+        with:
+          coverageCommand: npm run coverage
+          debug: true
