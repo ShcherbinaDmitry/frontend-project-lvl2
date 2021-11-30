@@ -25,4 +25,4 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TEST_ID }}
         with:
           debug: true
-          coverageCommand: make test
+          run: make test
