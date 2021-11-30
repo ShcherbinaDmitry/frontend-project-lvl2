@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: paambaati/codeclimate-action@v3.0.0
 
       - name: Deps install
         run: make install
@@ -21,8 +20,9 @@ jobs:
         run: make lint
       
       - name: Test & publish code coverage
-        env: 
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TEST_ID }}
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: <code_climate_reporter_id>
         with:
+          coverageCommand: make test
           debug: true
-        run: make test
