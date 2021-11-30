@@ -21,6 +21,6 @@ jobs:
       
       - name: Test run
         run: make test
-         env:
+        env:
           CI: true
           CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
