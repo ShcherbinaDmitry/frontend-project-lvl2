@@ -20,12 +20,9 @@ jobs:
       - name: Linter check
         run: make lint
       
-      - name: Test run
-        run: make test
-
       - name: Test & publish code coverage
-        env:
+        env: 
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TEST_ID }}
         with:
-          coverageCommand: npm run coverage
           debug: true
+          coverageCommand: make test
