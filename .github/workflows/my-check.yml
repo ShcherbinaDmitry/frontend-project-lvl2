@@ -9,6 +9,17 @@ on:
 
 jobs:
   test:
+    steps:
+    - uses: actions/checkout@master
+    - uses: codecov/codecov-action@v2
+    with:
+      token: ${{ secrets.CODECLIMATE_TEST_ID }} # not required for public repos
+      files: ./coverage1.xml,./coverage2.xml # optional
+      flags: unittests # optional
+      name: codecov-umbrella # optional
+      fail_ci_if_error: true # optional (default = false)
+      verbose: true # optional (default = false)
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +32,3 @@ jobs:
       
       - name: Test run
         run: make test
-        env:
-          CI: true
-          CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
