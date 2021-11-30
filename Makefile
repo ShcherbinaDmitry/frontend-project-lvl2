@@ -4,7 +4,7 @@ install: # установка пакетов
 		npm ci
 
 test: # запуск тестов
-		npm test
+		npx jest --coverage
 
 lint: # запуск линтера
 		npx eslint .
