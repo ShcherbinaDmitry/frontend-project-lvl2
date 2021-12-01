@@ -1,13 +1,9 @@
 import _ from 'lodash';
-import path from 'path';
-import fs from 'fs';
+import parse from './parsers.js';
 
 export default (filepath1, filepath2) => {
-  const path1 = path.resolve(process.cwd(), filepath1);
-  const path2 = path.resolve(process.cwd(), filepath2);
-
-  const obj1 = JSON.parse(fs.readFileSync(path1, 'utf-8'));
-  const obj2 = JSON.parse(fs.readFileSync(path2, 'utf-8'));
+  const obj1 = parse(filepath1);
+  const obj2 = parse(filepath2);
 
   const merge = { ...obj1, ...obj2 };
 
