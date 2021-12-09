@@ -8,5 +8,7 @@ export default (filepath1, filepath2, format) => {
 
   const diffObj = diff(obj1, obj2);
 
+  console.log(diffObj);
+
   return formatter(diffObj, format);
 };

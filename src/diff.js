@@ -1,54 +1,29 @@
 import _ from 'lodash';
 
 const diff = (obj1, obj2) => {
-  const keys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
+  const keys1 = _.keys(obj1);
+  const keys2 = _.keys(obj2);
+  const keys = _.union(keys1, keys2).sort();
+
   const iter = (acc, key) => {
     const oldValue = obj1[key];
     const newValue = obj2[key];
 
+    const obj = {};
+
     if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
-      return {
-        ...acc,
-        [key]: {
-          children: diff(oldValue, newValue), type: 'object',
-        },
-        type: 'object',
-      };
+      obj[key] = { children: diff(oldValue, newValue), type: 'object' };
+    } else if (!_.has(obj1, key)) {
+      obj[key] = { newValue, type: 'added' };
+    } else if (!_.has(obj2, key)) {
+      obj[key] = { oldValue, type: 'removed' };
+    } else if (oldValue === newValue) {
+      obj[key] = { oldValue, type: 'unchanged' };
+    } else {
+      obj[key] = { newValue, oldValue, type: 'updated' };
     }
 
-    if (!_.has(obj1, key)) {
-      return {
-        ...acc,
-        [key]: {
-          newValue, type: 'added',
-        },
-      };
-    }
-
-    if (!_.has(obj2, key)) {
-      return {
-        ...acc,
-        [key]: {
-          oldValue, type: 'deleted',
-        },
-      };
-    }
-
-    if (oldValue !== newValue) {
-      return {
-        ...acc,
-        [key]: {
-          newValue, oldValue, type: 'changed',
-        },
-      };
-    }
-
-    return {
-      ...acc,
-      [key]: {
-        oldValue, type: 'unchanged',
-      },
-    };
+    return { ...acc, ...obj };
   };
 
   return keys.reduce(iter, {});
