@@ -3,7 +3,7 @@ import _ from 'lodash';
 const diff = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
   const keys2 = _.keys(obj2);
-  const keys = _.union(keys1, keys2).sort();
+  const keys = _.sortBy(_.union(keys1, keys2));
 
   const iter = (acc, key) => {
     const oldValue = obj1[key];
