@@ -2,21 +2,14 @@ import { expect, test } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import genDiff from '../src/index.js';
+import parse from '../src/parsers';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-test('Compare plain json', () => {
+test('Diff plain objects', () => {
   const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'plain', filename);
-
-  const result = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
+  const result = parse(getFixturePath('result.txt'));
 
   // Test plain JSON
   const path1json = getFixturePath('file1.json');
@@ -31,53 +24,9 @@ test('Compare plain json', () => {
   expect(genDiff(path1yml, path2yml, 'stylish')).toEqual(result);
 });
 
-test('Compare nested', () => {
+test('Diff with stylish output', () => {
   const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'nested', filename);
-
-  const result = `{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}`;
+  const result = parse(getFixturePath('result.txt'));
 
   // Testing nested JSON
   const path1json = getFixturePath('file1.json');
@@ -89,10 +38,10 @@ test('Compare nested', () => {
   const path1 = getFixturePath('file1.json');
   const path2 = getFixturePath('file2.json');
 
-  // expect(genDiff(path1, path2, 'stylish')).toEqual(result);
+  expect(genDiff(path1, path2, 'stylish')).toEqual(result);
 });
 
-test('Compare plain format', () => {
+test('Diff with plain output', () => {
   const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'nested', filename);
 
   const result = `

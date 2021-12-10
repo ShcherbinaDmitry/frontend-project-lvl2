@@ -13,5 +13,9 @@ export default (filepath) => {
     return yaml.load(data);
   }
 
+  if (ext === '.txt') {
+    return data;
+  }
+
   return JSON.parse(data);
 };
