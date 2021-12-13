@@ -19,7 +19,7 @@ const diff = (obj1, obj2) => {
       obj[key] = { oldValue, type: 'removed' };
     } else if (oldValue === newValue) {
       obj[key] = { oldValue, type: 'unchanged' };
-    } else {
+    } else if (oldValue !== newValue) {
       obj[key] = { newValue, oldValue, type: 'updated' };
     }
 
