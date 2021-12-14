@@ -27,7 +27,7 @@ make publish
 ```
 
 ### Usage
-# help
+# Help
 To access gendiff help, use console and enter:
 ```
 gendiff -h or gendiff --help
@@ -39,17 +39,18 @@ gendiff -V or gendiff --version
 ```
 
 # Supported formats
-.json, .yaml, .yml
+Gendiff supports following formats: '.json', '.yaml', '.yml'.
 
 # How to use
-Use console and enter
+Gendiff is command-line program, which compares two objects, stored in different files and outputs the result of this comparison.
+
 ```
-gendifff <path to file1> <path to file2>
+gendiff <path to file1> <path to file2>
 ```
 # Format options
 Use -f, --format option for different output (optional)
 ```
-gendifff <path to file1> <path to file2>--format stylish (default)/ plain / json
+gendiff <path to file1> <path to file2>--format stylish (default)/ plain / json
 ```
 
 ### Examples

@@ -9,21 +9,16 @@ const diff = (obj1, obj2) => {
     const oldValue = obj1[key];
     const newValue = obj2[key];
 
-    const obj = {};
-
     if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
-      obj[key] = { children: diff(oldValue, newValue), type: 'object' };
-    } else if (!_.has(obj1, key)) {
-      obj[key] = { newValue, type: 'added' };
-    } else if (!_.has(obj2, key)) {
-      obj[key] = { oldValue, type: 'removed' };
-    } else if (oldValue === newValue) {
-      obj[key] = { oldValue, type: 'unchanged' };
-    } else {
-      obj[key] = { newValue, oldValue, type: 'updated' };
+      return { ...acc, [key]: { children: diff(oldValue, newValue), type: 'object' } };
+    } if (!_.has(obj1, key)) {
+      return { ...acc, [key]: { newValue, type: 'added' } };
+    } if (!_.has(obj2, key)) {
+      return { ...acc, [key]: { oldValue, type: 'removed' } };
+    } if (oldValue === newValue) {
+      return { ...acc, [key]: { oldValue, type: 'unchanged' } };
     }
-
-    return { ...acc, ...obj };
+    return { ...acc, [key]: { newValue, oldValue, type: 'updated' } };
   };
 
   return keys.reduce(iter, {});
