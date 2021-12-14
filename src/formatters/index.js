@@ -2,12 +2,14 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 
 export default (obj, format) => {
-  if (format === 'stylish') {
-    return stylish(obj);
+  switch (format) {
+    case 'stylish':
+      return stylish(obj);
+    case 'plain':
+      return plain(obj);
+    case 'json':
+      return JSON.stringify(obj);
+    default:
+      return 'Choose correct format (stylish, plain or json)';
   }
-  if (format === 'plain') {
-    return plain(obj);
-  }
-
-  return "Incorrect format. Try 'plain' or 'stylish'";
 };
